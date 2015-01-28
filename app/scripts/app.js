@@ -16,9 +16,18 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'mgcrea.ngStrap',
     'chart.js',
-    'firebase'
+    'firebase',
+    'uiGmapgoogle-maps'
   ])
+  .config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAZIkwd2AxmBp6qe2iVQnuv3gP4-NiYNVI',
+      v: '3.18',
+      libraries: 'places, circle'
+    });
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -36,6 +45,14 @@ angular
       .when('/dashboard', {
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl'
+      })
+      .when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl'
+      })
+      .when('/events/new', {
+        templateUrl: 'views/newevent.html',
+        controller: 'NeweventCtrl'
       })
       .otherwise({
         redirectTo: '/'

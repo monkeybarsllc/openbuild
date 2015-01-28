@@ -1,3 +1,8 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+// endbower
+
 $monkeybars-blue: #4B6686;
 $chart-1: rgba(151, 187, 205, 1);
 $chart-2: rgba(220, 220, 220, 1);
@@ -12,7 +17,7 @@ html, body {
 }
 
 body {
-  padding-top: 12px;
+  padding-top: 48px;
 }
 
 footer {
@@ -34,10 +39,11 @@ img {
   margin-right: auto;
 }
 
+#admin-dashboard {
+}
 
 #dashboard {
   height: 95%;
-  padding-top: 48px;
 }
 
 #hero {
@@ -69,14 +75,15 @@ img {
 
 #login {
   height: 95%;
-  padding-top: 48px;
 }
 
 #registration {
   height: 95%;
-  padding-top: 48px;
 }
 
+.angular-google-map-container {
+  height: 300px;
+}
 
 .circle-button {
   h3 {
@@ -111,4 +118,8 @@ img {
   padding-bottom: 12px;
   background-color: darken($monkeybars-blue, 20);
   color: #f5f5f5;
+}
+
+.section-title {
+//  border-bottom: 1px solid #d3d3d3;
 }

@@ -9,7 +9,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -40,10 +40,11 @@
             <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
             <!--<li><a href="#">Link</a></li>-->
           </ul>
+
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#/login" ng-hide="loggedIn">Login</a></li>
             <li><a href="#/dashboard" ng-show="loggedIn">Dashboard</a></li>
-            <li><a href="" ng-show="loggedIn" ng-click="logout()">Logout</a></li>
+            <li><a href="" ng-show="loggedIn" bs-dropdown="userDropdown">{{user.name || 'Anonymous'}}</a></li>
           </ul>
         </div>
       </div>
@@ -93,7 +94,10 @@
     <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angularfire/dist/angularfire.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -105,6 +109,10 @@
         <script src="scripts/controllers/nav.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/register.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/controllers/admin.js"></script>
+        <script src="scripts/controllers/newevent.js"></script>
+        <script src="scripts/services/event.js"></script>
         <!-- endbuild -->
 </body>
 </html>

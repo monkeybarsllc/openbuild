@@ -8,21 +8,35 @@
  * Service in the openbuildApp.
  */
 angular.module('openbuildApp')
-  .factory('authService', function authService($firebaseAuth, $q) {
+  .factory('authService', function authService($firebaseAuth, $q, userService) {
 
     var ref = new Firebase('https://openbuild.firebaseio.com/');
     var authObj = $firebaseAuth(ref);
     var loggedIn = false;
+    var role = null;
 
     authObj.$onAuth(function(authData) {
-      loggedIn = authData ? true : false;
+      if (authData) {
+        authCheck(authData.uid)
+          .then(function(data) {
+            loggedIn = true;
+            role = data;
+          });
+      } else {
+        loggedIn = false;
+      }
     });
 
     function authCheck(providerUid) {
       var deferred = $q.defer();
       ref.child('userRoles').child(providerUid).once('value', function(snapshot) {
         if (snapshot.val() === null) { deferred.reject(); }
-        else { deferred.resolve(snapshot.val()); }
+        else {
+          userService.setUser(providerUid)
+            .then(function() {
+              deferred.resolve(snapshot.val());
+            });
+        }
       });
       return deferred.promise;
     }
@@ -65,7 +79,7 @@ angular.module('openbuildApp')
             .catch(function() {
               addNewUserProfile(authData.uid, userInfo)
                 .then(function() {
-                  deferred.resolve();
+                    deferred.resolve();
                 });
             });
         });
@@ -86,7 +100,7 @@ angular.module('openbuildApp')
         .then(function(authData) {
           authCheck(authData.uid)
             .then(function() {
-              deferred.resolve();
+                deferred.resolve();
             })
             .catch(function() {
               deferred.reject();
@@ -100,6 +114,10 @@ angular.module('openbuildApp')
 
     service.logout = function() {
       authObj.$unauth();
+    };
+
+    service.isAdmin = function() {
+      return role == 'admin';
     };
 
     return service;
