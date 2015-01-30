@@ -10,19 +10,19 @@
         <div class="col-xs-4">
           <a href="#" class="circle-button">
             <img src="images/volunteer.png" class="img-responsive img-circle">
-            <h3 class="text-center">VOLUNTEER</h3>
+            <h4 class="text-center">VOLUNTEER</h4>
           </a>
         </div>
         <div class="col-xs-4">
           <a href="#" class="circle-button">
             <img src="images/attend.png" class="img-responsive img-circle">
-            <h3 class="text-center">ATTEND</h3>
+            <h4 class="text-center">ATTEND</h4>
           </a>
         </div>
         <div class="col-xs-4">
           <a href="#" class="circle-button">
             <img src="images/sponsor.png" class="img-responsive img-circle">
-            <h3 class="text-center">SPONSOR</h3>
+            <h4 class="text-center">SPONSOR</h4>
           </a>
         </div>
       </div>
@@ -119,25 +119,46 @@
 
 <section id="events">
   <h1 class="title text-center">
-    Previous and upcoming events
+    List of Events
   </h1>
 
   <div class="container">
     <div class="col-md-4">
-      <div class="row">
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
-        <div class="col-xs-4"><img src="http://placehold.it/300x300" class="img-circle img-responsive"></div>
+      <div class="list-group">
+        <a href=""
+           class="list-group-item"
+           ng-repeat="event in events"
+           ng-init="event.selected = false"
+           ng-class="{'true':'active'}[event.selected]"
+           ng-click="selectEvent(event, $index)">
+          <h4>{{event.title}}</h4>
+          {{event.startDate | date:'shortDate'}} - {{event.endDate | date:'shortDate'}}
+        </a>
       </div>
     </div>
     <div class="col-md-8">
-      <p class="lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae pulvinar dolor. Integer sit amet porta ex. Nunc purus augue, eleifend a ipsum ac, aliquam congue est.
+      <p class="lead" ng-hide="selectedEvent.selected">
+        Choose an event for more information.
       </p>
+      <div ng-show="selectedEvent.selected">
+        <h2 class="text-center">
+          {{selectedEvent.title}} <br/>
+          <small>
+            {{selectedEvent.startDate | date:'shortDate'}} - {{selectedEvent.endDate | date:'shortDate'}}
+          </small>
+        </h2>
+        <p class="lead">{{selectedEvent.description}}</p>
+        <h2>
+          <small>
+            Event Partners
+          </small>
+        </h2>
+        <div class="row">
+          <div class="col-md-4" ng-repeat="partner in selectedEvent.partners">
+            <img src="{{partner.imageLink}}" class="img-responsive">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

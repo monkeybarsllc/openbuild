@@ -14,6 +14,7 @@
           <a href=""
              class="list-group-item"
              ng-repeat="event in events"
+             ng-init="event.selected = false"
              ng-class="{'true':'active'}[event.selected]"
              ng-click="selectEvent(event, $index)">
             <h4>{{event.title}}</h4>
@@ -32,6 +33,11 @@
                   name="editEventForm"
                   ng-submit="updateEvent(editEventForm.$valid)"
                   ng-show="selectedEvent.selected">
+              <h2>
+                <small>
+                  General Event Info
+                </small>
+              </h2>
               <!--event.title-->
               <div class="form-group"
                    ng-class="{'has-error': editEventForm.title.$invalid}">
@@ -91,7 +97,8 @@
                      data-start-collapsed="true"
                      data-allow-multiple="true"
                      bs-collapse>
-                  <div class="panel panel-default" ng-repeat="day in selectedEvent.schedule">
+                  <div class="panel panel-default"
+                       ng-repeat="day in selectedEvent.schedule">
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a bs-collapse-toggle>
@@ -192,6 +199,82 @@
                                   ng-class="{disabled: !newDate}"
                                   ng-click="addDateToSchedule()">
                             Add Date
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--event.partners-->
+              <div class="form-group">
+                <label>Partner Links</label>
+                <div class="panel-group"
+                     data-start-collapsed="true"
+                     data-allow-multiple="true"
+                     bs-collapse>
+                  <div class="panel panel-default"
+                       ng-repeat="partner in selectedEvent.partners">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a bs-collapse-toggle>
+                          {{partner.name}}
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="panel-collapse" bs-collapse-target>
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Name</label>
+                          <input type="text"
+                                 class="form-control"
+                                 ng-model="partner.name"
+                                 ng-readonly="selectedEvent.readonly" />
+                        </div>
+                        <div class="form-group">
+                          <label>Image Link</label>
+                          <input type="text"
+                                 class="form-control"
+                                 ng-model="partner.imageLink"
+                                 ng-readonly="selectedEvent.readonly" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a bs-collapse-toggle>
+                          Add a partner to this event
+                        </a>
+                      </h4>
+                    </div>
+                    <div class="panel-collapse" bs-collapse-target>
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Name</label>
+                          <input type="text"
+                                 class="form-control"
+                                 name="newPartnerName"
+                                 placeholder="MonkeyBars"
+                                 ng-model="newPartner.name"
+                                 ng-readonly="selectedEvent.readonly" />
+                        </div>
+                        <div class="form-group">
+                          <label>Image Link</label>
+                          <input type="text"
+                                 class="form-control"
+                                 name="newPartnerImageLink"
+                                 placeholder="http://..."
+                                 ng-model="newPartner.imageLink"
+                                 ng-readonly="selectedEvent.readonly" />
+                        </div>
+                        <div class="form-group">
+                          <button type="button"
+                                  class="btn btn-success btn-block"
+                                  ng-class="{disabled: !newPartner.name}"
+                                  ng-click="addPartnerToEvent(newPartner)">
+                            Add Partner
                           </button>
                         </div>
                       </div>

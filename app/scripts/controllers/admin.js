@@ -50,7 +50,23 @@ angular.module('openbuildApp')
       day.items[index] = {
         time: newTime.time.toJSON(),
         description: newTime.description
+      };
+      newTime = null;
+    };
+
+    $scope.addPartnerToEvent = function(newPartner) {
+      var index = null;
+      if (!$scope.selectedEvent.partners) {
+        $scope.selectedEvent.partners = {};
+        index = 0;
+      } else {
+        index = Object.keys($scope.selectedEvent.partners).length;
       }
+      $scope.selectedEvent.partners[index] = {
+        name: newPartner.name,
+        imageLink: newPartner.imageLink
+      };
+      newPartner = null;
     };
 
     $scope.editEvent = function() {
@@ -70,8 +86,8 @@ angular.module('openbuildApp')
         eventService.updateEvent($scope.selectedIndex)
           .then(function() {
             $scope.selectedEvent.readonly = true;
-          })
-      };
+          });
+      }
     };
 
     $scope.updateScheduleItem = function(item) {
