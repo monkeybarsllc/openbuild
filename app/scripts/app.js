@@ -58,6 +58,10 @@ angular
         templateUrl: 'views/volunteer.html',
         controller: 'VolunteerCtrl'
       })
+      .when('/attend', {
+        templateUrl: 'views/attend.html',
+        controller: 'AttendCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
